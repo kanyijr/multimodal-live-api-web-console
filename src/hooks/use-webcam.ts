@@ -30,6 +30,8 @@ export function useWebcam(): UseMediaStreamResult {
       stream
         .getTracks()
         .forEach((track) => track.addEventListener("ended", handleStreamEnded));
+      
+      // cleanup for ensuring old event listeners are removed when the component unmounts
       return () => {
         stream
           .getTracks()

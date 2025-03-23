@@ -23,7 +23,6 @@ import { LiveConfig } from "../multimodal-live-types";
 import { AudioStreamer } from "../lib/audio-streamer";
 import { audioContext } from "../lib/utils";
 import VolMeterWorket from "../lib/worklets/vol-meter";
-
 export type UseLiveAPIResults = {
   client: MultimodalLiveClient;
   setConfig: (config: LiveConfig) => void;
@@ -42,11 +41,15 @@ export function useLiveAPI({
     () => new MultimodalLiveClient({ url, apiKey }),
     [url, apiKey],
   );
+
   const audioStreamerRef = useRef<AudioStreamer | null>(null);
 
   const [connected, setConnected] = useState(false);
   const [config, setConfig] = useState<LiveConfig>({
     model: "models/gemini-2.0-flash-exp",
+    systemInstruction: {
+      parts: [{ text: "You are a helpful assistant"}, {text:"Your name is Mulongo"}],
+    },
   });
   const [volume, setVolume] = useState(0);
 

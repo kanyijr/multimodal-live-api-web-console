@@ -25,11 +25,23 @@ export type LiveAPIProviderProps = {
   apiKey: string;
 };
 
-export const LiveAPIProvider: FC<LiveAPIProviderProps> = ({
+/*
+This context provides application wide information eg connection status to the gemini servers
+This is useful in the sense that, other components can change behaviour based on the info provided by the 
+context
+
+*/
+
+
+export const LiveAPIProvider: FC<LiveAPIProviderProps>= ({
   url,
   apiKey,
   children,
 }) => {
+  /*
+  We can ideally just put the functionality of useLiveAPI here, but
+  we encapsulate it in a function to just make it easier to read
+   */
   const liveAPI = useLiveAPI({ url, apiKey });
 
   return (

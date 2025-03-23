@@ -36,7 +36,11 @@ function App() {
   const videoRef = useRef<HTMLVideoElement>(null);
   // either the screen capture, the video or null, if null we hide it
   const [videoStream, setVideoStream] = useState<MediaStream | null>(null);
-
+  
+  // videostream state is for determining whether the video element is shown or hidden
+  // videoRef is for getting the DOM object ie the video element. The videoRef is passed
+  // to the ControlTray component which determines which MediaStream to display to the video
+  // element.
   return (
     <div className="App">
       <LiveAPIProvider url={uri} apiKey={API_KEY}>
@@ -55,7 +59,11 @@ function App() {
                 playsInline
               />
             </div>
-
+           {/* 
+            ControlTray component is used to determine which mediaStream is going to be 
+            displayed in the video element, it controls this components videoStream state.
+            It also controls how what stream to show by using the videoRef            
+           */}
             <ControlTray
               videoRef={videoRef}
               supportsVideo={true}
