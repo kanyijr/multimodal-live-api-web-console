@@ -16,7 +16,7 @@
 
 const AudioRecordingWorklet = `
 class AudioProcessingWorklet extends AudioWorkletProcessor {
-
+  //The buffer is used to temporarily hold formatted audio samples from normalized float32 to rescaled int16
   // send and clear buffer every 2048 samples, 
   // which at 16khz is about 8 times a second
   buffer = new Int16Array(2048);

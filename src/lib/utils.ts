@@ -30,7 +30,9 @@ export const audioContext: (
 
   return async (options?: GetAudioContextOptions) => {
     try {
+      // the audio element is a trick to check if the browser allows autoplay without user interaction. If not wait for user to interact with the page
       const a = new Audio();
+      // this embeds a very small wav audio file
       a.src =
         "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA";
       await a.play();

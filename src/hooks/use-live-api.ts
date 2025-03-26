@@ -83,7 +83,8 @@ export function useLiveAPI({
       .on("close", onClose)
       .on("interrupted", stopAudioStreamer)
       .on("audio", onAudio);
-
+    
+    // deregistering event callbacks when component unmounts so as to not schedule duplicate events
     return () => {
       client
         .off("close", onClose)
@@ -102,6 +103,7 @@ export function useLiveAPI({
     setConnected(true);
   }, [client, setConnected, config]);
 
+  // the dependency list should only contain items used within the function 
   const disconnect = useCallback(async () => {
     client.disconnect();
     setConnected(false);

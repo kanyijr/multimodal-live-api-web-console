@@ -97,6 +97,7 @@ function ControlTray({
       ]);
     };
     if (connected && !muted && audioRecorder) {
+      // Sets up the audio recorder for capturing audio
       audioRecorder.on("data", onData).on("volume", setInVolume).start();
     } else {
       audioRecorder.stop();

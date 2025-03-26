@@ -80,6 +80,7 @@ export class MultimodalLiveClient extends EventEmitter<MultimodalLiveClientEvent
       `wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent`;
     url += `?key=${apiKey}`;
     this.url = url;
+    // binding the send function to the instance in order not to lose context eg when passed as a callback 
     this.send = this.send.bind(this);
   }
 

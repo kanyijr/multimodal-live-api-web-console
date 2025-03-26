@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import { audioContext } from "./utils";
 import AudioRecordingWorklet from "./worklets/audio-processing";
 import VolMeterWorket from "./worklets/vol-meter";
@@ -31,6 +30,8 @@ function arrayBufferToBase64(buffer: ArrayBuffer) {
   return window.btoa(binary);
 }
 
+// This class handles capturing audio from the mic, emitting 'data' events (with the audio as base64 string)
+// and 'volume' events. Uses an audio worklet for format conversion
 export class AudioRecorder extends EventEmitter {
   stream: MediaStream | undefined;
   audioContext: AudioContext | undefined;
@@ -65,6 +66,7 @@ export class AudioRecorder extends EventEmitter {
       );
 
       this.recordingWorklet.port.onmessage = async (ev: MessageEvent) => {
+        // Fires when the recording worklet sends data
         // worklet processes recording floats and messages converted buffer
         const arrayBuffer = ev.data.data.int16arrayBuffer;
 
